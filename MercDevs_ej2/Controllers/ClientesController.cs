@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MercDevs_ej2.Models;
+using System.Diagnostics;
 
 
 namespace MercDevs_ej2.Controllers
@@ -28,6 +29,8 @@ namespace MercDevs_ej2.Controllers
         // GET: Clientes/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+            Debug.WriteLine("console wirle line");
+            Debug.Write("write");
             if (id == null)
             {
                 return NotFound();
