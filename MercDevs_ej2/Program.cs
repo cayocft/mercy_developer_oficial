@@ -1,7 +1,9 @@
 using MercDevs_ej2.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-
+//Para iniciar sesión y prohibir ingresos
+using Microsoft.AspNetCore.Authentication.Cookies;
+//FIN
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -11,7 +13,15 @@ builder.Services.AddDbContext <MercydevsEjercicio2Context>(options =>
 options.UseMySql(builder.Configuration.GetConnectionString("connection"),
 Microsoft.EntityFrameworkCore.ServerVersion.Parse("10.4.25-mariadb")));
 //end bdd
+//Para el login 
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.LoginPath = "/Login/Ingresar";
 
+        options.ExpireTimeSpan = TimeSpan.FromDays(1);
+    });
+//FinParal ogin
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -26,11 +36,12 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+app.UseAuthentication();
 
 app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Login}/{action=Ingresar}/{id?}");
 
 app.Run();

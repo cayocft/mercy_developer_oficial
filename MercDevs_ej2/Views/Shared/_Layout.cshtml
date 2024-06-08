@@ -10,7 +10,10 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <!-- EL if(USer...) Es para no mostrar le menú cuando el usuario no se haya autenticado-->
+        @if (User.Identity!.IsAuthenticated)
+        {
+            <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
                     <img src="~/srcImg/cftLogo.png" alt="Logo" style="height: 60px; width:90px" />
@@ -55,10 +58,16 @@
                         </li>
                         <div class="vr"></div>
 
+                        <li class=" nav-item ">
+                            <a  class=" nav-link btn btn-outline-danger" asp-area="" asp-controller="Home" asp-action="LogOut">Cerrar Sesión</a>
+                        </li>
+                        <div class="vr"></div>
                     </ul>
                 </div>
             </div>
         </nav>
+        }
+        
     </header>
     <div class="container">
         <main role="main" class="pb-3">
